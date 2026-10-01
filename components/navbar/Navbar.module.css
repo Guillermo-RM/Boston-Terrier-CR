@@ -1,0 +1,192 @@
+.header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(208, 176, 112, 0.3);
+  background: rgba(0, 0, 0, 0.92);
+  box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(1rem);
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  min-height: var(--nav-height);
+  width: min(100% - 2rem, 75rem);
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.brand {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--gold-highlight);
+  text-decoration: none;
+}
+
+.brand:focus-visible,
+.links a:focus-visible,
+.menuButton:focus-visible {
+  outline: 2px solid var(--gold-highlight);
+  outline-offset: 0.3rem;
+}
+
+.brandName {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.logoFrame {
+  position: relative;
+  display: block;
+  flex: 0 0 3.625rem;
+  width: 3.625rem;
+  height: 3.625rem;
+  overflow: hidden;
+  border: 1px solid rgba(224, 192, 128, 0.72);
+  border-radius: 50%;
+  background: var(--black);
+  box-shadow: 0 0 1.25rem rgba(208, 176, 112, 0.16);
+}
+
+.logo {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.links {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.75rem);
+  list-style: none;
+}
+
+.links a {
+  position: relative;
+  display: block;
+  padding-block: 0.6rem;
+  color: rgba(243, 238, 227, 0.78);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.links a::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.2rem;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  content: '';
+  opacity: 0;
+  transform: scaleX(0.45);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.links a:hover {
+  color: var(--gold-highlight);
+}
+
+.links a:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.menuButton {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(208, 176, 112, 0.4);
+  border-radius: 50%;
+  background: rgba(208, 176, 112, 0.07);
+  cursor: pointer;
+}
+
+.menuButton span {
+  display: block;
+  height: 1px;
+  margin-block: 0.28rem;
+  background: var(--gold-highlight);
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+@media (max-width: 48rem) {
+  .navbar {
+    width: min(100% - 1.25rem, 75rem);
+  }
+
+  .logoFrame {
+    flex-basis: 3rem;
+    width: 3rem;
+    height: 3rem;
+  }
+
+    .brandName {
+    max-width: 12rem;
+  }
+
+  .menuButton {
+    display: block;
+  }
+
+  .links {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: -0.625rem;
+    left: -0.625rem;
+    display: grid;
+    max-height: 0;
+    overflow: hidden;
+    gap: 0;
+    border-bottom: 1px solid transparent;
+    background: rgba(0, 0, 0, 0.97);
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 220ms ease, opacity 180ms ease, border-color 180ms ease;
+  }
+
+  .links.open {
+    max-height: 28rem;
+    border-bottom-color: rgba(208, 176, 112, 0.3);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .links li + li {
+    border-top: 1px solid rgba(208, 176, 112, 0.11);
+  }
+
+  .links a {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .links a::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links,
+  .links a,
+  .links a::after,
+  .menuButton span {
+    transition: none;
+  }
+}

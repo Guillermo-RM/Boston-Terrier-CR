@@ -1,0 +1,30 @@
+.intentSection,
+.articleSection { padding: clamp(4rem, 8vw, 7rem) max(1.25rem, calc((100vw - 75rem) / 2)); }
+.guideImage { display: grid; margin: 0; padding: clamp(4rem,7vw,6rem) max(1.25rem,calc((100vw - 75rem)/2)); grid-template-columns: minmax(0,1.15fr) minmax(18rem,.85fr); align-items: center; gap: clamp(2.5rem,7vw,7rem); background: #0a0a0a; }
+.guideImageFrame { position: relative; width: 100%; max-width: 42rem; aspect-ratio: 4/5; overflow: hidden; justify-self: center; background: #111; }
+.guideImageFrame img { object-fit: cover; object-position: center; }
+.guideImage figcaption { display: grid; padding-top: 1.5rem; border-top: 1px solid rgba(208,176,112,.25); color: rgba(243,238,227,.76); font-family: Georgia,'Times New Roman',serif; font-size: clamp(1.45rem,2.6vw,2.35rem); line-height: 1.3; }
+.guideImage figcaption span { margin-bottom: 1rem; color: var(--gold-medium); font-family: Arial,Helvetica,sans-serif; font-size: .68rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.intentSection { background: #0a0a0a; }
+.articleSection { background: var(--black); }
+.sectionHeading { display: grid; margin-bottom: 2.5rem; grid-template-columns: 1fr minmax(16rem, .65fr); align-items: end; gap: 2rem; }
+.sectionHeading h2 { max-width: 13ch; margin: 0; font-family: Georgia,'Times New Roman',serif; font-size: clamp(2.4rem,5vw,4.5rem); font-weight: 500; letter-spacing: -.045em; line-height: 1; }
+.sectionHeading > p { margin: 0; color: rgba(243,238,227,.62); line-height: 1.75; }
+.intentGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.intentCard { display: grid; min-height: 10rem; padding: 1.5rem; border: 1px solid rgba(208,176,112,.18); grid-template-columns: 1fr auto; align-content: space-between; gap: .75rem; background: #0f0f0f; text-decoration: none; transition: border-color 180ms ease,transform 180ms ease; }
+.intentCard > span:first-child { grid-column: 1/-1; color: var(--gold-medium); font-size: .68rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.intentCard strong { max-width: 21rem; font-family: Georgia,'Times New Roman',serif; font-size: 1.35rem; font-weight: 500; }
+.intentCard > span:last-child { color: var(--gold-highlight); font-size: 1.5rem; }
+.intentCard:hover { border-color: rgba(224,192,128,.65); transform: translateY(-3px); }
+.intentCard:last-child { grid-column: 1/-1; background: radial-gradient(circle at 85% 50%,rgba(83,139,161,.18),transparent 18rem),#0f1112; }
+.articleGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.25rem; }
+.articleCard { display: flex; min-height: 26rem; padding: clamp(1.5rem,3vw,2.4rem); border: 1px solid rgba(208,176,112,.2); flex-direction: column; background: linear-gradient(145deg,#111,#090909); }
+.cardTop { display: flex; margin-bottom: auto; justify-content: space-between; color: rgba(243,238,227,.4); font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.articleCard > p:first-of-type { margin: 2.5rem 0 .65rem; color: var(--gold-medium); font-size: .68rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.articleCard h3 { margin: 0; font-family: Georgia,'Times New Roman',serif; font-size: clamp(1.7rem,3vw,2.35rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.08; }
+.articleCard h3 a { text-decoration: none; }
+.articleCard > p:nth-of-type(2) { margin: 1rem 0 1.5rem; color: rgba(243,238,227,.6); line-height: 1.7; }
+.readLink { width: fit-content; margin-top: auto; color: var(--gold-highlight); font-size: .73rem; font-weight: 800; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+.goldButton { display: inline-flex; min-height: 3.25rem; padding: .8rem 1.35rem; border-radius: 999px; align-items: center; background: var(--gold-highlight); color: #100d08; font-size: .76rem; font-weight: 800; letter-spacing: .09em; text-decoration: none; text-transform: uppercase; }
+@media (max-width: 48rem) { .sectionHeading,.intentGrid,.articleGrid,.guideImage { grid-template-columns: 1fr; } .intentCard:last-child { grid-column: auto; } .articleCard { min-height: 23rem; } .guideImage { gap: 2rem; } .guideImageFrame { aspect-ratio: 3/4; } }
+@media (prefers-reduced-motion: reduce) { .intentCard { transition: none; } }

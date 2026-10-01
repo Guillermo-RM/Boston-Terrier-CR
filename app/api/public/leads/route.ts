@@ -1,0 +1,2 @@
+import { apiError, ok } from '@/lib/api/response'; import { connectMongo } from '@/lib/db/mongoose'; import { breedIsAvailable } from '@/lib/repositories/leads'; import { leadSchema } from '@/lib/validation/lead'; import { Lead } from '@/models/Lead'
+export async function POST(r:Request){try{const input=leadSchema.parse(await r.json());const breedAvailable=await breedIsAvailable(input.breed);await connectMongo();await Lead.create({...input,website:undefined,breedAvailable,read:false});return ok({breedAvailable},201)}catch(e){return apiError(e)}}

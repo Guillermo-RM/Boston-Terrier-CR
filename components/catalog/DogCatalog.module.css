@@ -1,0 +1,173 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid rgba(208, 176, 112, 0.22);
+  background: #0d0d0d;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.card:hover {
+  border-color: rgba(224, 192, 128, 0.55);
+  transform: translateY(-4px);
+}
+
+.image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.image img {
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.card:hover .image img {
+  transform: scale(1.04);
+}
+
+.image > span {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--gold-highlight);
+  color: #0b0905;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.body {
+  display: grid;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.meta,
+.description {
+  margin: 0;
+}
+
+.meta,
+.eyebrow {
+  color: var(--gold-medium);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.titleRow h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.9rem;
+  font-weight: 500;
+}
+
+.titleRow strong {
+  color: var(--gold-highlight);
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.features span {
+  padding: 0.38rem 0.6rem;
+  border: 1px solid rgba(208, 176, 112, 0.2);
+  border-radius: 999px;
+  color: rgba(243, 238, 227, 0.68);
+  font-size: 0.66rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.description,
+.empty > p:not(.eyebrow) {
+  color: rgba(243, 238, 227, 0.6);
+  line-height: 1.7;
+}
+
+.whatsappButton {
+  display: inline-flex;
+  min-height: 3.15rem;
+  width: fit-content;
+  padding: 0.78rem 1.2rem;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: #25d366;
+  color: #071b10;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.whatsappButton:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+}
+
+.empty {
+  display: grid;
+  min-height: 22rem;
+  padding: clamp(2rem, 6vw, 5rem);
+  border: 1px solid rgba(208, 176, 112, 0.22);
+  align-content: center;
+  justify-items: start;
+  gap: 1rem;
+  background: radial-gradient(circle at 85% 50%, rgba(208, 176, 112, 0.13), transparent 25rem), #11100d;
+}
+
+.empty h2 {
+  max-width: 17ch;
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 500;
+}
+
+.empty > p {
+  max-width: 40rem;
+  margin: 0;
+}
+
+@media (max-width: 68rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 46rem) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .image img,
+  .whatsappButton {
+    transition: none;
+  }
+}

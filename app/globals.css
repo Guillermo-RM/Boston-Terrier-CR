@@ -1,0 +1,113 @@
+:root {
+  --black: #000000;
+  --black-soft: #101010;
+  --charcoal: #202020;
+  --gold: #d0b070;
+  --gold-medium: #c0a060;
+  --gold-dark: #a08040;
+  --gold-highlight: #e0c080;
+  --cream: #f3eee3;
+  --nav-height: 5.25rem;
+
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--cream);
+  background: var(--black);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 1rem);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(208, 176, 112, 0.08), transparent 26rem),
+    var(--black);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.floating-whatsapp {
+  position: fixed;
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  right: max(1.25rem, env(safe-area-inset-right));
+  z-index: 90;
+  display: inline-flex;
+  min-height: 3.5rem;
+  padding: 0.72rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  align-items: center;
+  gap: 0.62rem;
+  background: #25d366;
+  box-shadow: 0 0.8rem 2.5rem rgba(0, 0, 0, 0.38), 0 0.4rem 1.25rem rgba(37, 211, 102, 0.22);
+  color: #071b10;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.floating-whatsapp svg {
+  width: 1.65rem;
+  height: 1.65rem;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+.floating-whatsapp:hover {
+  background: #2be070;
+  box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.44), 0 0.5rem 1.5rem rgba(37, 211, 102, 0.3);
+  transform: translateY(-3px);
+}
+
+.floating-whatsapp:focus-visible {
+  outline: 3px solid var(--cream);
+  outline-offset: 3px;
+}
+
+@media (max-width: 30rem) {
+  .floating-whatsapp {
+    width: 3.5rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .floating-whatsapp span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-whatsapp {
+    transition: none;
+  }
+}

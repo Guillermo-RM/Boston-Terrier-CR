@@ -1,0 +1,32 @@
+.footer { padding: clamp(3.5rem,7vw,6rem) max(1.25rem,calc((100vw - 75rem)/2)) 1.5rem; border-top: 1px solid rgba(208,176,112,.18); background: radial-gradient(circle at 90% 10%,rgba(208,176,112,.09),transparent 24rem),#050505; }
+.top { display: grid; padding-bottom: clamp(3rem,6vw,5rem); grid-template-columns: 1.35fr .65fr .85fr 1.15fr; gap: clamp(2rem,5vw,4rem); }
+.brandColumn { display: grid; align-content: start; justify-items: start; gap: 1.35rem; }
+.brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+.brand img { border: 1px solid rgba(208,176,112,.35); border-radius: 50%; object-fit: cover; }
+.brand div { display: grid; gap: .3rem; }
+.brand strong { font-family: Georgia,'Times New Roman',serif; font-size: 1.2rem; font-weight: 500; }
+.brand span, .brandColumn > p, .contactColumn p, .bottom p { color: rgba(243,238,227,.48); }
+.brand span { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; }
+.brandColumn > p { max-width: 26rem; margin: 0; font-size: .86rem; line-height: 1.7; }
+.location { color: var(--gold-medium); font-size: .68rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.linkColumn h2, .contactColumn h2 { margin: 0; font-family: Georgia,'Times New Roman',serif; font-weight: 500; }
+.linkColumn h2 { padding-bottom: 1.3rem; border-bottom: 1px solid rgba(208,176,112,.17); font-size: 1.1rem; }
+.linkColumn nav, .externalLinks { display: grid; }
+.linkColumn a { display: flex; padding: .72rem 0; justify-content: space-between; gap: .75rem; border-bottom: 1px solid rgba(208,176,112,.1); color: rgba(243,238,227,.58); font-size: .72rem; text-decoration: none; text-transform: uppercase; }
+.linkColumn a:hover { color: var(--gold-highlight); }
+.contactColumn { display: grid; padding: 1.75rem; border: 1px solid rgba(208,176,112,.22); align-content: start; justify-items: start; gap: 1rem; background: rgba(18,15,9,.72); }
+.contactColumn > span { color: var(--gold-medium); font-size: .65rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.contactColumn h2 { font-size: clamp(1.45rem,2.4vw,2rem); line-height: 1.1; }
+.contactColumn p { margin: 0; font-size: .82rem; line-height: 1.6; }
+.contactColumn a { display: inline-flex; min-height: 2.9rem; margin-top: .35rem; padding: .7rem 1rem; border: 1px solid #25d366; border-radius: 999px; align-items: center; gap: .75rem; background: #25d366; color: #071b10; font-size: .65rem; font-weight: 900; letter-spacing: .07em; text-decoration: none; text-transform: uppercase; }
+.bottom { display: flex; padding-top: 1.5rem; border-top: 1px solid rgba(208,176,112,.16); align-items: center; justify-content: space-between; gap: 1.5rem; }
+.bottom p { margin: 0; font-size: .7rem; }
+.bottom nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.bottom a { color: rgba(243,238,227,.55); font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.bottom a:hover { color: var(--gold-highlight); }
+@media (max-width: 66rem) { .top { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 42rem) {
+  .top { grid-template-columns: 1fr; }
+  .bottom { align-items: flex-start; flex-direction: column; }
+  .bottom nav { gap: .8rem 1rem; }
+}
