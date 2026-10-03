@@ -60,7 +60,7 @@ export function PublicFooter() {
       </div>
 
       <div className={styles.bottom}>
-        <p>© {new Date().getFullYear()} Boston Terrier CR</p>
+        <p>© {new Date().getFullYear()} Boston Terrier CR · Diseñado por <a href="https://guimiumtech.com/" target="_blank" rel="noopener noreferrer">Guimium Tech</a></p>
         <nav aria-label="Redes sociales oficiales">
           {socials.map((social) => <a href={social.href} target="_blank" rel="noopener noreferrer" key={social.href}>{social.label}</a>)}
         </nav>

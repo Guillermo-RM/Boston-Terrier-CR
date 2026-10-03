@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PublicFooter } from '@/components/public-footer/PublicFooter'
 import { getWhatsappHref } from '@/lib/whatsapp'
+import { RELATED_SITES, SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from '@/lib/site'
 import styles from '../route-pages.module.css'
 
 export const metadata: Metadata = {
@@ -39,19 +40,19 @@ const socialLinks = [
   { label: 'TikTok', handle: '@cachorros_petchochos', href: 'https://www.tiktok.com/@cachorros_petchochos' },
 ]
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
-
 export default function AboutPage() {
   const whatsappHref = getWhatsappHref('Hola, quisiera conocer más sobre su proceso de crianza de Boston Terrier.')
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Boston Terrier CR',
-    url: `${siteUrl}/nosotros`,
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: `${SITE_URL}/nosotros`,
+    areaServed: { '@type': 'Country', name: 'Costa Rica' },
+    knowsAbout: ['Boston Terrier', 'Boston Blue', 'crianza responsable'],
     sameAs: [
-      ...relatedProjects.map((project) => project.href),
-      ...socialLinks.map((social) => social.href),
+      ...RELATED_SITES,
+      ...SOCIAL_LINKS,
     ],
   }
 

@@ -1,8 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { articles } from '@/lib/articles'
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
+import { SITE_URL } from '@/lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -14,19 +12,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const staticRoutes: MetadataRoute.Sitemap = routes.map(({ path, priority }) => ({
-    url: `${siteUrl}${path}`,
-    lastModified: new Date(),
+    url: `${SITE_URL}${path}`,
+    lastModified: new Date('2026-10-03T00:00:00Z'),
     changeFrequency: 'weekly',
     priority,
-    images: path === '' ? [`${siteUrl}/images/hero-puppies.webp`] : undefined,
+    images: path === '' ? [`${SITE_URL}/images/hero-puppies.webp`] : undefined,
   }))
 
   const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${siteUrl}/guia/${article.slug}`,
+    url: `${SITE_URL}/guia/${article.slug}`,
     lastModified: article.updatedAt,
     changeFrequency: 'monthly',
     priority: 0.75,
-    images: [`${siteUrl}/images/hero-puppies.webp`],
+    images: [`${SITE_URL}/images/hero-puppies.webp`],
   }))
 
   return [...staticRoutes, ...articleRoutes]

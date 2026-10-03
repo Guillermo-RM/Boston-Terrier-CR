@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PublicFooter } from '@/components/public-footer/PublicFooter'
 import { getWhatsappHref } from '@/lib/whatsapp'
+import { SITE_NAME, SITE_URL } from '@/lib/site'
 import { ContactForm } from './ContactForm'
 import styles from './contacto.module.css'
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     title: 'Contacto | Boston Terrier CR',
     description: 'Conversemos sobre disponibilidad, precios y el proceso para reservar un cachorro Boston Terrier en Costa Rica.',
     url: '/contacto',
+    images: [{ url: '/images/editorial/puppy-pink-portrait.webp', alt: 'Contacto Boston Terrier CR en Costa Rica' }],
   },
 }
 
@@ -28,6 +30,13 @@ export default function ContactPage() {
 
   return (
     <main className={styles.main}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'ContactPage', '@id': `${SITE_URL}/contacto#page`, name: 'Contacto Boston Terrier CR', url: `${SITE_URL}/contacto`, inLanguage: 'es-CR', isPartOf: { '@id': `${SITE_URL}/#website` }, mainEntity: { '@id': `${SITE_URL}/#organization` } },
+          { '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: SITE_NAME, url: SITE_URL, areaServed: { '@type': 'Country', name: 'Costa Rica' }, contactPoint: { '@type': 'ContactPoint', telephone: '+50672006675', contactType: 'sales', availableLanguage: 'Spanish' } },
+        ],
+      }).replace(/</g, '\\u003c') }} />
       <header className={styles.hero}>
         <div>
           <p className={styles.eyebrow}>Contacto</p>

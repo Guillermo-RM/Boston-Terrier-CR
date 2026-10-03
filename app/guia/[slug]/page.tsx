@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PublicFooter } from '@/components/public-footer/PublicFooter'
 import { articles, getArticle, getRelatedArticles } from '@/lib/articles'
+import { GUIDE_URL, SITE_NAME, SITE_URL } from '@/lib/site'
 import styles from './article.module.css'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -22,6 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: article.seoTitle,
     description: article.description,
     keywords: article.keywords,
+    authors: [{ name: SITE_NAME }],
+    robots: { index: true, follow: true },
     alternates: { canonical: `/guia/${article.slug}` },
     openGraph: {
       type: 'article',
@@ -31,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'es_CR',
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
-      images: [{ url: '/images/hero-puppies.webp', alt: article.title }],
+      images: [{ url: '/images/hero-puppies.webp', alt: `${article.title} | ${SITE_NAME}` }],
     },
     twitter: {
       card: 'summary_large_image',
@@ -48,8 +51,7 @@ export default async function ArticlePage({ params }: Props) {
   if (!article) notFound()
 
   const related = getRelatedArticles(article)
-  const siteUrl = getSiteUrl()
-  const articleUrl = `${siteUrl}/guia/${article.slug}`
+  const articleUrl = `${GUIDE_URL}/${article.slug}`
   const isBostonBlueGuide = article.slug === 'boston-blue-color-precio-costa-rica'
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -62,10 +64,14 @@ export default async function ArticlePage({ params }: Props) {
         datePublished: article.publishedAt,
         dateModified: article.updatedAt,
         inLanguage: 'es-CR',
-        image: `${siteUrl}/images/hero-puppies.webp`,
-        mainEntityOfPage: articleUrl,
-        author: { '@type': 'Organization', name: 'Boston Terrier CR', url: siteUrl },
-        publisher: { '@type': 'Organization', name: 'Boston Terrier CR', url: siteUrl, logo: { '@type': 'ImageObject', url: `${siteUrl}/images/boston-terrier-logo.jpeg` } },
+        image: `${SITE_URL}/images/hero-puppies.webp`,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+        isPartOf: { '@id': `${GUIDE_URL}#collection` },
+        about: { '@type': 'Thing', name: isBostonBlueGuide ? 'Boston Blue' : 'Boston Terrier' },
+        keywords: article.keywords.join(', '),
+        author: { '@id': `${SITE_URL}/#organization` },
+        publisher: { '@id': `${SITE_URL}/#organization` },
+        citation: article.sources.map((source) => source.url),
       },
       {
         '@type': 'FAQPage',
@@ -74,8 +80,8 @@ export default async function ArticlePage({ params }: Props) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
-          { '@type': 'ListItem', position: 2, name: 'Guía', item: `${siteUrl}/guia` },
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE_URL },
+          { '@type': 'ListItem', position: 2, name: 'Guía', item: GUIDE_URL },
           { '@type': 'ListItem', position: 3, name: article.title, item: articleUrl },
         ],
       },
@@ -134,11 +140,6 @@ export default async function ArticlePage({ params }: Props) {
       <PublicFooter />
     </main>
   )
-}
-
-function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL
-    ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
 }
 
 function formatDate(date: string) {

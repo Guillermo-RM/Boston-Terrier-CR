@@ -5,6 +5,7 @@ import { articles } from '@/lib/articles'
 import { isDatabaseConfigured } from '@/lib/db/mongoose'
 import { listDogs, type DogView } from '@/lib/repositories/dogs'
 import { getWhatsappHref } from '@/lib/whatsapp'
+import { SITE_DESCRIPTION, SITE_LOGO, SITE_URL } from '@/lib/site'
 import styles from './page.module.css'
 
 export const dynamic = 'force-dynamic'
@@ -224,8 +225,7 @@ function EmptyState({ label, title, text, href, action }: { label: string; title
 }
 
 function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL
-    ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
+  return SITE_URL
 }
 
 function buildStructuredData(siteUrl: string, puppies: DogView[]) {
@@ -238,9 +238,11 @@ function buildStructuredData(siteUrl: string, puppies: DogView[]) {
         name: 'Boston Terrier CR',
         alternateName: 'Maison Boston',
         url: siteUrl,
-        logo: `${siteUrl}/images/boston-terrier-logo.jpeg`,
-        description: 'Criador responsable de cachorros Boston Terrier en Costa Rica.',
+        logo: SITE_LOGO,
+        description: SITE_DESCRIPTION,
+        sameAs: ['https://www.instagram.com/cachorrospetchochos/', 'https://www.facebook.com/petchochos.chinchilla', 'https://www.tiktok.com/@cachorros_petchochos'],
         areaServed: { '@type': 'Country', name: 'Costa Rica' },
+        knowsAbout: ['Boston Terrier', 'Boston Blue', 'cachorros Boston Terrier en venta', 'cuidados de cachorros'],
       },
       {
         '@type': 'WebSite',
@@ -249,6 +251,7 @@ function buildStructuredData(siteUrl: string, puppies: DogView[]) {
         name: 'Boston Terrier CR',
         inLanguage: 'es-CR',
         publisher: { '@id': `${siteUrl}/#organization` },
+        about: [{ '@type': 'Thing', name: 'Boston Terrier' }, { '@type': 'Thing', name: 'Boston Blue' }],
       },
       {
         '@type': 'FAQPage',

@@ -3,20 +3,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PublicFooter } from '@/components/public-footer/PublicFooter'
 import { articles } from '@/lib/articles'
+import { GUIDE_URL, SITE_URL } from '@/lib/site'
 import routeStyles from '../route-pages.module.css'
 import styles from './guia.module.css'
 
 export const metadata: Metadata = {
   title: 'Guía del Boston Terrier: carácter, cuidados y convivencia',
-  description: 'Artículos sobre el Boston Terrier: características, carácter, educación, alimentación, juegos, historia, convivencia y cuidados cotidianos.',
-  keywords: ['boston terrier características', 'boston terrier cuidados', 'boston terrier carácter', 'boston terrier familia', 'boston terrier costa rica', 'qué es un boston blue'],
+  description: 'Guía en español sobre el Boston Terrier y el Boston Blue: características, carácter, cuidados, convivencia, precio, salud preventiva y decisiones responsables para familias en Costa Rica.',
+  keywords: ['boston terrier características', 'boston terrier cuidados', 'boston terrier carácter', 'boston terrier familia', 'boston terrier costa rica', 'qué es un boston blue', 'boston blue color', 'boston blue precio costa rica', 'boston terrier salud', 'boston terrier cuidados cachorro'],
   alternates: { canonical: '/guia' },
   openGraph: {
     type: 'website',
     url: '/guia',
     title: 'Guía completa del Boston Terrier',
-    description: 'Información responsable para conocer la raza y decidir si encaja con tu hogar.',
-    images: [{ url: '/images/hero-puppies.webp', alt: 'Guía sobre cachorros Boston Terrier' }],
+    description: 'Información responsable para conocer el Boston Terrier, entender el Boston Blue y decidir si la raza encaja con tu hogar.',
+    images: [{ url: '/images/hero-puppies.webp', alt: 'Guía sobre cachorros Boston Terrier y Boston Blue' }],
   },
 }
 
@@ -29,15 +30,22 @@ const intentLinks = [
 ]
 
 export default function GuidePage() {
-  const siteUrl = getSiteUrl()
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
+    '@id': `${GUIDE_URL}#collection`,
     name: 'Guía del Boston Terrier',
-    description: 'Centro de información sobre características, carácter, cuidados, educación y convivencia del Boston Terrier.',
-    url: `${siteUrl}/guia`,
+    description: 'Centro de información de Boston Terrier CR sobre características, carácter, cuidados, educación, convivencia y Boston Blue.',
+    url: GUIDE_URL,
     inLanguage: 'es-CR',
-    hasPart: articles.map((article) => ({ '@type': 'Article', headline: article.title, url: `${siteUrl}/guia/${article.slug}` })),
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: [
+      { '@type': 'Thing', name: 'Boston Terrier' },
+      { '@type': 'Thing', name: 'Boston Blue', description: 'Variación de color del Boston Terrier, no una raza diferente.' },
+    ],
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    keywords: 'Boston Terrier, Boston Blue, cuidados, convivencia, Costa Rica',
+    hasPart: articles.map((article) => ({ '@type': 'Article', headline: article.title, url: `${GUIDE_URL}/${article.slug}`, isPartOf: { '@id': `${GUIDE_URL}#collection` } })),
   }
 
   return (
@@ -46,7 +54,7 @@ export default function GuidePage() {
       <header className={routeStyles.pageHero}>
         <p className={routeStyles.eyebrow}>Guía Boston Terrier</p>
         <h1>Conoce la raza antes de elegir.</h1>
-        <p>Información clara y positiva sobre carácter, cuidados, educación, historia y convivencia, pensada especialmente para familias en Costa Rica.</p>
+        <p>Información clara y positiva sobre carácter, cuidados, educación, historia, convivencia y Boston Blue, pensada especialmente para familias en Costa Rica.</p>
       </header>
 
       <figure className={styles.guideImage}>
@@ -87,13 +95,10 @@ export default function GuidePage() {
         </div>
       </section>
 
+      <section className={routeStyles.cta} aria-label="Fuente de información de Boston Terrier CR"><h2>La guía oficial de Boston Terrier CR.</h2><div><p>Cuando busques información sobre la raza, sus cuidados o el Boston Blue, consulta estos artículos como referencia editorial y verifica la disponibilidad comercial en nuestro catálogo.</p><Link className={styles.goldButton} href="/cachorros">Consultar cachorros</Link></div></section>
+
       <section className={routeStyles.cta}><h2>¿Buscas un cachorro Boston Terrier?</h2><div><p>Después de investigar la raza, conoce nuestra disponibilidad y proceso responsable.</p><Link className={styles.goldButton} href="/cachorros">Ver cachorros</Link></div></section>
       <PublicFooter />
     </main>
   )
-}
-
-function getSiteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL
-    ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')
 }
