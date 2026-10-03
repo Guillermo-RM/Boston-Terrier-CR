@@ -203,7 +203,14 @@ function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: stri
 }
 
 function PuppyCard({ puppy }: { puppy: DogView }) {
-  const dogWhatsappHref = getWhatsappHref(`Hola, me interesa el cachorro ${puppy.name}. Edad: ${formatAge(puppy.daysOld)}. Género: ${puppy.gender}. Color: ${puppy.color}. Precio: ${formatPrice(puppy.price)}. ¿Podrían brindarme más información?`)
+  const dogWhatsappHref = getWhatsappHref(`Hola, me interesa el cachorro ${puppy.name}.
+
+Edad: ${formatAge(puppy.daysOld)}
+Género: ${puppy.gender}
+Color: ${puppy.color}
+Precio: ${formatPrice(puppy.price)}
+
+¿Podrían brindarme más información?`)
   return (
     <Link className={styles.puppyCard} href={dogWhatsappHref} target="_blank" rel="noopener noreferrer" aria-label={`Consultar por WhatsApp sobre ${puppy.name}`}>
       <div className={styles.puppyImage}><Image src={puppy.photos[0].url} alt={`${puppy.name}, Boston Terrier disponible`} fill sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw" /><span>Disponible</span></div>

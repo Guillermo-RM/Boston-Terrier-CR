@@ -72,7 +72,14 @@ function isExternal(href: string) {
 }
 
 function buildDogMessage(dog: DogView) {
-  return `Hola, me interesa el cachorro ${dog.name}. Edad: ${formatAge(dog.daysOld)}. Género: ${dog.gender}. Color: ${dog.color}. Precio: ${formatPrice(dog.price)}. ¿Podrían brindarme más información?`
+  return `Hola, me interesa el cachorro ${dog.name}.
+
+Edad: ${formatAge(dog.daysOld)}
+Género: ${dog.gender}
+Color: ${dog.color}
+Precio: ${formatPrice(dog.price)}
+
+¿Podrían brindarme más información?`
 }
 
 function formatAge(days: number) {
