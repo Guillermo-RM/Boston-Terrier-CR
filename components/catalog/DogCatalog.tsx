@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { getWhatsappHref } from '@/lib/whatsapp'
 import type { DogView } from '@/lib/repositories/dogs'
 import styles from './DogCatalog.module.css'
 
@@ -34,8 +35,9 @@ export function DogCatalog({
   return (
     <div className={styles.grid}>
       {dogs.map((dog) => {
+        const dogWhatsappHref = getWhatsappHref(buildDogMessage(dog))
         return (
-          <article className={styles.card} key={dog.id}>
+          <Link className={styles.card} key={dog.id} href={dogWhatsappHref} target="_blank" rel="noopener noreferrer" aria-label={`Consultar por WhatsApp sobre ${dog.name}`}>
             <div className={styles.image}>
               <Image
                 src={dog.photos[0].url}
@@ -56,11 +58,9 @@ export function DogCatalog({
                 {dog.hasPedigree ? <span>Pedigree</span> : null}
                 {dog.hasAwards ? <span>Premiado</span> : null}
               </div>
-              <Link className={styles.whatsappButton} href={defaultWhatsappHref} target={isExternal(defaultWhatsappHref) ? '_blank' : undefined}>
-                Consultar cachorro <span aria-hidden="true">↗</span>
-              </Link>
+              <span className={styles.whatsappButton}>Consultar cachorro <span aria-hidden="true">↗</span></span>
             </div>
-          </article>
+          </Link>
         )
       })}
     </div>
@@ -69,6 +69,10 @@ export function DogCatalog({
 
 function isExternal(href: string) {
   return href.startsWith('http')
+}
+
+function buildDogMessage(dog: DogView) {
+  return `Hola, me interesa el cachorro ${dog.name}. Edad: ${formatAge(dog.daysOld)}. Género: ${dog.gender}. Color: ${dog.color}. Precio: ${formatPrice(dog.price)}. ¿Podrían brindarme más información?`
 }
 
 function formatAge(days: number) {

@@ -81,7 +81,7 @@ export default async function Home() {
       <section className={`${styles.section} ${styles.catalogSection}`} id="disponibles">
         <SectionHeading eyebrow="Cachorros Boston Terrier en venta" title="Boston Terrier disponibles en Costa Rica." text="Cada perfil reúne género, edad, pedigree y precio para ayudarte a comprar un Boston Terrier en Costa Rica con calma y confianza." />
         {puppies.length ? (
-          <div className={styles.catalogGrid}>{puppies.map((puppy) => <PuppyCard key={puppy.id} puppy={puppy} whatsappHref={whatsappHref} />)}</div>
+          <div className={styles.catalogGrid}>{puppies.map((puppy) => <PuppyCard key={puppy.id} puppy={puppy} />)}</div>
         ) : (
           <EmptyState label="Próxima camada" title="Estamos preparando nuevas historias." text="En este momento no hay cachorros publicados. Escríbenos para consultar la próxima camada Boston Terrier en Costa Rica." href={whatsappHref} action="Consultar disponibilidad" />
         )}
@@ -202,12 +202,13 @@ function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: stri
   return <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>{eyebrow}</p><h2>{title}</h2></div><p>{text}</p></div>
 }
 
-function PuppyCard({ puppy, whatsappHref }: { puppy: DogView; whatsappHref: string }) {
+function PuppyCard({ puppy }: { puppy: DogView }) {
+  const dogWhatsappHref = getWhatsappHref(`Hola, me interesa el cachorro ${puppy.name}. Edad: ${formatAge(puppy.daysOld)}. Género: ${puppy.gender}. Color: ${puppy.color}. Precio: ${formatPrice(puppy.price)}. ¿Podrían brindarme más información?`)
   return (
-    <article className={styles.puppyCard}>
+    <Link className={styles.puppyCard} href={dogWhatsappHref} target="_blank" rel="noopener noreferrer" aria-label={`Consultar por WhatsApp sobre ${puppy.name}`}>
       <div className={styles.puppyImage}><Image src={puppy.photos[0].url} alt={`${puppy.name}, Boston Terrier disponible`} fill sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw" /><span>Disponible</span></div>
-      <div className={styles.puppyInfo}><p>{formatAge(puppy.daysOld)} · {puppy.gender} · {puppy.color}</p><div><h3>{puppy.name}</h3><strong>{formatPrice(puppy.price)}</strong></div><Link className={styles.whatsappTextLink} href={whatsappHref} target={isExternal(whatsappHref) ? '_blank' : undefined}>Quiero conocerlo <span aria-hidden="true">→</span></Link></div>
-    </article>
+      <div className={styles.puppyInfo}><p>{formatAge(puppy.daysOld)} · {puppy.gender} · {puppy.color}</p><div><h3>{puppy.name}</h3><strong>{formatPrice(puppy.price)}</strong></div><span className={styles.whatsappTextLink}>Quiero conocerlo <span aria-hidden="true">→</span></span></div>
+    </Link>
   )
 }
 
