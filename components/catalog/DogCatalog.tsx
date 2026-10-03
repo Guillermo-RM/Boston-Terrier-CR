@@ -34,10 +34,6 @@ export function DogCatalog({
   return (
     <div className={styles.grid}>
       {dogs.map((dog) => {
-        const href = dog.contactWhatsapp
-          ? `https://wa.me/${dog.contactWhatsapp.replace(/\D/g, '')}`
-          : defaultWhatsappHref
-
         return (
           <article className={styles.card} key={dog.id}>
             <div className={styles.image}>
@@ -59,10 +55,8 @@ export function DogCatalog({
               <div className={styles.features}>
                 {dog.hasPedigree ? <span>Pedigree</span> : null}
                 {dog.hasAwards ? <span>Premiado</span> : null}
-                <span>{dog.breed}</span>
               </div>
-              {dog.description ? <p className={styles.description}>{dog.description}</p> : null}
-              <Link className={styles.whatsappButton} href={href} target={isExternal(href) ? '_blank' : undefined}>
+              <Link className={styles.whatsappButton} href={defaultWhatsappHref} target={isExternal(defaultWhatsappHref) ? '_blank' : undefined}>
                 Consultar cachorro <span aria-hidden="true">↗</span>
               </Link>
             </div>

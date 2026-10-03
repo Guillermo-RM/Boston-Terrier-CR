@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 import type { DogView } from '@/lib/repositories/dogs'
 import type { DogInput } from '@/lib/validation/dog'
+import { WHATSAPP_NUMBER } from '@/lib/whatsapp'
 import styles from '../../admin.module.css'
 
 type Mode = 'Cachorros' | 'Vendidos'
@@ -100,13 +101,13 @@ function DogForm({ dog, onDone, onPhotoDeleted }: Readonly<{ dog: DogView | null
       if (!savedPhotos.length) throw new Error('Agrega al menos una fotografía.')
       const input: DogInput = {
         name: String(form.get('name') || ''),
-        breed: String(form.get('breed') || 'Boston Terrier'),
+        breed: 'Boston Terrier',
         gender: String(form.get('gender') || 'Macho') as DogInput['gender'],
         color: String(form.get('color') || ''),
         daysOld: Number(form.get('daysOld')), hasPedigree: form.get('hasPedigree') === 'on', hasAwards: form.get('hasAwards') === 'on',
         price: Number(form.get('price')), photos: savedPhotos,
-        description: String(form.get('description') || ''),
-        contactWhatsapp: String(form.get('contactWhatsapp') || ''), available: form.get('available') === 'on', sold: dog?.sold ?? false,
+        description: '',
+        contactWhatsapp: WHATSAPP_NUMBER, available: form.get('available') === 'on', sold: dog?.sold ?? false,
       }
       const response = await fetch(dog ? `/api/admin/dogs/${dog.id}` : '/api/admin/dogs', {
         method: dog ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(input),
@@ -123,11 +124,8 @@ function DogForm({ dog, onDone, onPhotoDeleted }: Readonly<{ dog: DogView | null
       <p className={styles.eyebrow}>{dog ? 'Editar' : 'Nuevo registro'}</p><h2>{dog ? dog.name : 'Agregar cachorro'}</h2>
       <form className={styles.dogForm} onSubmit={submit}>
         <label>Nombre<input name="name" defaultValue={dog?.name} required maxLength={120} /></label>
-        <label>Raza<input name="breed" defaultValue={dog?.breed || 'Boston Terrier'} required /></label>
         <div className={styles.twoCols}><label>Género<select name="gender" defaultValue={dog?.gender || 'Macho'}><option>Macho</option><option>Hembra</option></select></label><label>Color<input name="color" defaultValue={dog?.color} required /></label></div>
         <div className={styles.twoCols}><label>Edad en días<input name="daysOld" type="number" min="0" defaultValue={dog?.daysOld} required /></label><label>Precio CRC<input name="price" type="number" min="0" defaultValue={dog?.price} required /></label></div>
-        <label>Descripción<textarea name="description" defaultValue={dog?.description} required rows={3} /></label>
-        <label>WhatsApp<input name="contactWhatsapp" defaultValue={dog?.contactWhatsapp || process.env.NEXT_PUBLIC_WHATSAPP_CACHORROSRAZAPURA} /></label>
         <label>Fotografías<input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple required={!dog} /></label>
         {dog && photos.length ? (
           <div className={styles.photoList} aria-label="Fotografías actuales">

@@ -10,7 +10,7 @@ const photo = z.object({
 
 export const dogInputSchema = z.object({
   name: z.string().trim().min(1).max(120),
-  breed: z.string().trim().min(1).max(120),
+  breed: z.string().trim().max(120).default('Boston Terrier'),
   gender: z.enum(['Macho', 'Hembra']),
   color: z.string().trim().min(1).max(120),
   daysOld: z.coerce.number().int().min(0).max(7300),
@@ -18,8 +18,8 @@ export const dogInputSchema = z.object({
   hasAwards: z.boolean().default(false),
   price: z.coerce.number().min(0).max(100_000_000),
   photos: z.array(photo).min(1).max(20),
-  description: z.string().trim().min(1).max(1500),
-  contactWhatsapp: z.string().transform((value) => value.replace(/[^0-9+]/g, '')).pipe(z.string().max(20)).default(''),
+  description: z.string().trim().max(1500).default(''),
+  contactWhatsapp: z.string().transform((value) => value.replace(/[^0-9+]/g, '')).pipe(z.string().max(20)).default('50672006675'),
   available: z.boolean().default(true),
   sold: z.boolean().default(false),
 })

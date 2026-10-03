@@ -1,6 +1,7 @@
 import { Types } from 'mongoose'
 import { connectMongo } from '@/lib/db/mongoose'
 import { dogInputSchema, type DogInput } from '@/lib/validation/dog'
+import { WHATSAPP_NUMBER } from '@/lib/whatsapp'
 import { Dog } from '@/models/Dog'
 
 export type DogView = DogInput & { id: string; createdAt: string; updatedAt: string }
@@ -24,7 +25,7 @@ export async function listDogs(filters: { sold?: boolean; available?: boolean } 
 
 export async function createDog(input: DogInput, username: string) {
   await connectMongo()
-  const dog = await Dog.create({ ...input, updatedBy: username })
+  const dog = await Dog.create({ ...input, breed: 'Boston Terrier', description: '', contactWhatsapp: WHATSAPP_NUMBER, updatedBy: username })
   return serialize(dog.toObject())
 }
 
@@ -38,7 +39,7 @@ export async function getDog(id: string) {
 export async function updateDog(id: string, input: DogInput, username: string) {
   if (!Types.ObjectId.isValid(id)) return null
   await connectMongo()
-  const dog = await Dog.findByIdAndUpdate(id, { ...input, updatedBy: username }, { returnDocument: 'after', runValidators: true }).lean()
+  const dog = await Dog.findByIdAndUpdate(id, { ...input, breed: 'Boston Terrier', description: '', contactWhatsapp: WHATSAPP_NUMBER, updatedBy: username }, { returnDocument: 'after', runValidators: true }).lean()
   return dog ? serialize(dog as Record<string, unknown>) : null
 }
 

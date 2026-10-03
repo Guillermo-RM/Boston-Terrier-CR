@@ -203,11 +203,10 @@ function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: stri
 }
 
 function PuppyCard({ puppy, whatsappHref }: { puppy: DogView; whatsappHref: string }) {
-  const href = puppy.contactWhatsapp ? `https://wa.me/${puppy.contactWhatsapp.replace(/\D/g, '')}` : whatsappHref
   return (
     <article className={styles.puppyCard}>
       <div className={styles.puppyImage}><Image src={puppy.photos[0].url} alt={`${puppy.name}, Boston Terrier disponible`} fill sizes="(max-width: 680px) 100vw, (max-width: 1100px) 50vw, 33vw" /><span>Disponible</span></div>
-      <div className={styles.puppyInfo}><p>{formatAge(puppy.daysOld)} · {puppy.gender} · {puppy.color}</p><div><h3>{puppy.name}</h3><strong>{formatPrice(puppy.price)}</strong></div>{puppy.description ? <p>{puppy.description}</p> : null}<Link className={styles.whatsappTextLink} href={href} target={isExternal(href) ? '_blank' : undefined}>Quiero conocerlo <span aria-hidden="true">→</span></Link></div>
+      <div className={styles.puppyInfo}><p>{formatAge(puppy.daysOld)} · {puppy.gender} · {puppy.color}</p><div><h3>{puppy.name}</h3><strong>{formatPrice(puppy.price)}</strong></div><Link className={styles.whatsappTextLink} href={whatsappHref} target={isExternal(whatsappHref) ? '_blank' : undefined}>Quiero conocerlo <span aria-hidden="true">→</span></Link></div>
     </article>
   )
 }
