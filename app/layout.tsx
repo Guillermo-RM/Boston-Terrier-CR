@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import type { ReactNode } from 'react'
 import { PublicChrome } from '@/components/public-chrome/PublicChrome'
 import { getWhatsappHref } from '@/lib/whatsapp'
 import { GUIDE_URL, RELATED_SITES, SITE_DESCRIPTION, SITE_LOGO, SITE_NAME, SITE_URL, SOCIAL_LINKS } from '@/lib/site'
 import './globals.css'
+
+const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-31645M7Y4B'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -94,6 +97,18 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="es" data-scroll-behavior="smooth">
       <body>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GOOGLE_ANALYTICS_ID}', { page_path: window.location.pathname });
+          `}
+        </Script>
         <script id="site-structured-data" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
         <PublicChrome whatsappHref={whatsappHref} />
         {children}
